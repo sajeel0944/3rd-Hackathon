@@ -42,7 +42,7 @@ function ProduntDetail(props: detail) {
 
   // is ko nichy add to cart buttom onClick main diya hai is ky zaye api/addToCard main data jaraha hai
   const pushDataSanity = async () => {
-    const url = await fetch("/api/addToCard", {
+    const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,7 +2,7 @@ import CheckOutPage from "@/components/checkOutPage";
 
 async function Checkout() {
  
-  const url = await fetch("http://localhost:3000/api/addToCard", {
+  const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
     cache: "no-store",
   });
   

@@ -14,7 +14,7 @@ const Header = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = await fetch("http://localhost:3000/api/addToCard", {
+      const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
         cache: "no-store",
       });
       const convert = await url.json();
