@@ -67,7 +67,7 @@ const Header = () => {
       <div
         className={`flex ${display ? "" : "items-center"} space-x-7 [@media(max-width:480px)]:space-x-5 [@media(max-width:400px)]:w-[40%] [@media(max-width:380px)]:ml-5 `}
       >
-        <Link href={"contant"}>
+        <Link href={"/dashboard"}>
           <Image
             src={"/picture/mdi_account-alert-outline.png"}
             alt={"logo"}

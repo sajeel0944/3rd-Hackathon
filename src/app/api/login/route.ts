@@ -32,7 +32,7 @@ export async function POST(request:NextRequest){
         return NextResponse.json(
             {
                 valify:"yes",
-                user:"admin"
+                user:"/dashboard/admin"
             }
         )
     }else{
