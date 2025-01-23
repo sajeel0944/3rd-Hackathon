@@ -90,7 +90,7 @@ const Header = () => {
         <Link href={"/card"}>
           <div className="flex">
             {/* Agar find ki value null nahin hai, toh length dikhai jayegi. Agar null hai (matlab data abhi load ho raha hai), toh 'Loading...' text dikhaya jayega. or find uppar ida hai */}
-            <span className="text-base text-white bg-red-500 w-4 h-5 items-center justify-center flex rounded-full absolute ml-4 -mt-2">
+            <span className="text-base text-white bg-red-500 px-1 h-5 items-center justify-center flex rounded-full absolute ml-4 -mt-2">
               {find !== null ? find : "Loading..."}
             </span>
             <Image

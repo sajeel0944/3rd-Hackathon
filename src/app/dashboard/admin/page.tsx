@@ -1,4 +1,5 @@
 // pages/admin.tsx
+import AdminSignOut from "@/components/adminSignOut";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
@@ -49,9 +50,9 @@ const AdminPage = async () => {
             </Link>
           </li>
           <li>
-            <Link href="/" className="hover:text-blue-400">
-              Sign out
-            </Link>
+            {/* <Link href="/" className="hover:text-blue-400"> */}
+              <AdminSignOut/>
+            {/* </Link> */}
           </li>
         </ul>
       </div>

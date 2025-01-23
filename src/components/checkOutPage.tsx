@@ -314,6 +314,8 @@ function CheckOutPage(props: checkOuntInformation) {
           </div>
         </div>
       </form>
+
+      
       {/* jab place order par click ho ga to ye display block ho jaye ga */}
 
       <div>
