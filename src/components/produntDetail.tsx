@@ -18,6 +18,7 @@ type detail = {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import ShowAddToCardNotification from "./showAddToCardNotification";
 
 function ProduntDetail(props: detail) {
   // is ko nichy discribtion maim dia hai q ky sanity sy discrition bohot bare arahe thi is function sy hamain jitny word dyna hai hum utny word dy sak ty hai
@@ -54,6 +55,23 @@ function ProduntDetail(props: detail) {
     });
   };
 
+  // start     is nichy addtocard waly buttom main diya hai ye is liye diya taky jab user addtocard par click karry to  ShowAddToCardNotification wala componenet show ho
+  let [displatNotification, setdisplatNotification] = useState(false);
+  const handle = () => {
+    //is main sound hai
+    const sound = new Audio("/sound/notification-2-269292.mp3");
+    sound.play();
+
+    // jab user  addtocard wala buttum ko click karry ga to displatNotification is value true hogaye gi
+    setdisplatNotification((displatNotification = true));
+
+    // q ky ShowAddToCardNotification notification hai is liye bas setdisplatNotification 3 sec tak rahy us ky baat wo phir sy false ho jaye
+    setTimeout(() => {
+      setdisplatNotification((displatNotification = false));
+    }, 3000);
+
+    // end   ShowAddToCardNotification componenet ko addtocard ky buttom ky nichy dia hai
+  };
 
   return (
     <>
@@ -256,11 +274,17 @@ function ProduntDetail(props: detail) {
                 {/* pushDataSanity ye function upper dia hai */}
                 <h3
                   className="text-xl c  [@media(max-width:1124px)]:text-lg"
-                  onClick={pushDataSanity}
+                  onClick={() => {
+                    pushDataSanity();
+                    handle();
+                  }}
                 >
                   Add To Cart
                 </h3>
               </div>
+              {/*start  ShowAddToCardNotification component hai jab  Add To Cart waly buttum par click hoye ga to ye dis play hoye*/}
+              {displatNotification ? <ShowAddToCardNotification /> : ""}
+              {/* end  */}
 
               <div className="border border-black w-[35%] h-16 rounded-2xl flex justify-center items-center [@media(max-width:550px)]:h-12">
                 <div className="flex items-center justify-between w-[90%] ">

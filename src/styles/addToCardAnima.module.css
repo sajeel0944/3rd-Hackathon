@@ -1,0 +1,38 @@
+/* is ko meny ShowAddToCardNotification componenet main dia howa hai */
+
+
+.showNotofication{
+    height: 8px;
+    background: rgba(10, 255, 100, 0.753);
+    border-radius: 40px;
+    animation: run;
+    animation-duration: 1s;
+    animation-delay: 0.2s;
+   margin-left: 10px;
+   margin-right: 10px;
+}
+@keyframes run{
+    from{
+        width: 0px;
+    }
+    to{
+        width: 288px;
+    }
+}
+
+
+.main{
+    animation: show;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show{
+    from{
+        height: 0px;
+    }
+    to{
+        height: 70px;
+    }
+}
