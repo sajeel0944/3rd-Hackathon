@@ -192,7 +192,7 @@ function ProduntDetail(props: detail) {
           <div className=" w-[46%] h-[710px]  [@media(max-width:1124px)]:w-[49%] [@media(max-width:768px)]:w-full ">
             <h3 className="font-normal text-[42px]">{props.name}</h3>
             <h4 className="font-medium text-2xl text-[#9F9F9F]">
-              Rs. {props.price}.00
+              $. {props.price}.00
             </h4>
             <div className=" w-[51%] h-10 flex justify-between [@media(max-width:1124px)]:w-[79%] ">
               <div className="w-[45%] h-10 flex items-center ">

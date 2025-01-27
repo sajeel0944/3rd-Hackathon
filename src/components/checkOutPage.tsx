@@ -236,18 +236,18 @@ function CheckOutPage(props: checkOuntInformation) {
                   <div className=" h-[230px] w-[50%] space-y-8 text-end">
                     <h3 className="font-medium text-2xl">Subtotal</h3>
                     <h5>{props.quality}</h5>
-                    <h5>Rs. {props.price}.00</h5>
+                    <h5>$ {props.price}.00</h5>
                     <h5 className="font-bold text-2xl text-[#B88E2F] [@media(max-width:1190px)]:text-lg">
-                      Rs. {props.price}.00
+                      $ {props.price}.00
                     </h5>
                   </div>
                 </div>
-                <div className="flex items-center justify-between  w-48">
+                {/* <div className="flex items-center justify-between  w-48">
                   <div className="h-[14px] w-[14px] rounded-full bg-black"></div>
                   <h3 className="font-normal text-base">
                     Direct Bank Transfer
                   </h3>
-                </div>
+                </div> */}
                 <p className="w-full text-sm font-light text-[#9F9F9F]">
                   Make your payment directly into our bank account. Please use
                   your Order ID as the payment reference. Your order will not be
@@ -350,12 +350,12 @@ function CheckOutPage(props: checkOuntInformation) {
             {/* Product Price */}
             <div className="flex justify-between">
               <span>Price:</span>
-              <span>Rs. {props.price}.00</span>
+              <span>$ {props.price}.00</span>
               {/* Product ka price show kar raha hai */}
             </div>
             <div className="flex justify-between font-bold">
               <span>Total:</span>
-              <span>Rs. {props.price}.00</span>
+              <span>$ {props.price}.00</span>
               {/* Total price display kar raha hai */}
             </div>
           </div>

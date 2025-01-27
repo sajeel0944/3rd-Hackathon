@@ -70,7 +70,7 @@ async function Card() {
                         </span>
                       </td>
                       <td className="p-3 text-gray-700">
-                        Rs. {manageDateil.price}
+                        $ {manageDateil.price}
                       </td>
                       <td className="p-3 pl-9">
                     {/*is main quality arahe hai or array ky andar 2 array hai is liye [1] dala hai or us ky andar index diya hai taky jo index ka number us ki value aye       */}
@@ -78,7 +78,7 @@ async function Card() {
                       </td>
                       <td className="p-3 text-gray-700">
                         {/* jo  product ki price hai us ko product ki quality sy multiple kar arha ho*/}
-                        Rs. {manageDateil.price * convert[1][index]}
+                        $ {manageDateil.price * convert[1][index]}
                       </td>
                       <td className="p-3">
                         {/* is sy ye ho raha hai ky item ko delete karrahy hai un ky index number ky zaaye */}
@@ -98,12 +98,12 @@ async function Card() {
           <div className="flex justify-between">
             <span className="text-gray-600 text-sm">Subtotal</span>
             {/* totalPrice ko upper dia woya hai   */}
-            <span className="text-gray-800 text-sm">Rs. {totalPrice}</span>
+            <span className="text-gray-800 text-sm">$ {totalPrice}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-800 font-semibold text-sm">Total</span>
             {/* totalPrice ko upper dia woya hai   */}
-            <span className="text-gold font-bold text-sm">Rs. {totalPrice}</span>
+            <span className="text-gold font-bold text-sm">$ {totalPrice}</span>
           </div>
 
           <div className="flex justify-center">
