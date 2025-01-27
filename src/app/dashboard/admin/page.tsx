@@ -69,7 +69,7 @@ const AdminPage = async () => {
           </Link>
         </div>
 
-        {/* Furniture Management Section */}
+        {/* Furniture Management Section    */}
 
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -88,13 +88,13 @@ const AdminPage = async () => {
                       className="w-full h-48 object-cover"
                     />
 
-                    {/* Hover overlay */}
+                    {/* Hover overlay   */}
                     <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                         Edit
                       </button>
 
-                      {/* </Link> cancel this*/}
+                      {/* </Link> cancel this  */}
                     </div>
                   </div>
                 </Link>

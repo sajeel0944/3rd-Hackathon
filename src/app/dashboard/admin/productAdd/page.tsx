@@ -48,7 +48,7 @@ function ProductAdd() {
     const tagsresponse1 = tags1?.current?.value;
     const tagsresponse2 = tags2?.current?.value;
     const tagsresponse3 = tags3?.current?.value;
-    //is main jo 4 jo tags hai us ko ek arrray main dy raha ho
+    //is main jo 4 jo tags hai us ko ek arrray main dy  raha ho  
     let tagsresponseArray = [
       tagsresponse,
       tagsresponse1,
@@ -64,7 +64,7 @@ function ProductAdd() {
     //is main jo upper useRef main jo isNew hai us ki value ko get kar raha hai
     const isNewresponse = isNew;
 
-    // agar ye sary filled hoye gi to to ye true ho ye ga
+    // agar ye sary filled hoye gi to to ye true ho  ye ga
     if (
       titleresponse &&
       descriptionresponse &&

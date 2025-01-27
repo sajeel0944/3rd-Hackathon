@@ -62,7 +62,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Password Input */}
+          {/* Password Input  */}
           <div className="mb-6">
             <label
               htmlFor="password"
@@ -80,7 +80,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Submit Button  */}
           <button
             type="submit"
             className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -89,7 +89,7 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Footer Text */}
+        {/* Footer Text  */}
       </div>
     </div>
   );
