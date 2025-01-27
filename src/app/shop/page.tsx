@@ -7,7 +7,11 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 
-async function Shop() {
+// is ky zaraye jab bhi sanity main bata update ya new data dy ragy to to is ky zaraye wo UI main ek second ky baat nazar aye ga
+export const revalidate=1;
+
+
+async function Shop() {  
 
   const data = await client.fetch(`*[_type=="product"]{
     _id,

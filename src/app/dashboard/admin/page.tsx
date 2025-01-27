@@ -62,9 +62,11 @@ const AdminPage = async () => {
         {/* Top Navbar */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
+          <Link href={"/dashboard/admin/productAdd"}>
           <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
             Add Product
           </button>
+          </Link>
         </div>
 
         {/* Furniture Management Section */}

@@ -7,7 +7,9 @@ import Header from "@/components/Header";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
-// make new  page
+
+// is ky zaraye jab bhi sanity main bata update ya new data dy ragy to to is ky zaraye wo UI main ek second ky baat nazar aye ga
+export const revalidate=1;
 
 
 async function Product({ params }: { params: { product: string } }) {

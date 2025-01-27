@@ -304,7 +304,8 @@ function ProduntDetail(props: detail) {
               </div>
               <div className="w-full flex">
                 <h3 className="w-[21%]">Category</h3>{" "}
-                <span className="w-[3%]">:</span> <h3>{props.Category}</h3>
+                {/* join is liye laga ya hai ky array ky nadar jitni bhi value hai un main , comma aye ga  */}
+                <span className="w-[3%]">:</span> <h3>{[props.Category].join(" , ")}</h3>
               </div>
               <div className="w-full flex">
                 <h3 className="w-[21%]">Tags</h3>{" "}
