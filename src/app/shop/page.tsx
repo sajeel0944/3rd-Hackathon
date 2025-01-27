@@ -197,12 +197,12 @@ async function Shop() {
                   <p className="text-gray-600">{product.tags[2]}</p>
                   <div className="mt-2">
                     <span className="text-lg font-bold text-gray-800">
-                      Rs {product.price}
+                      $ {product.price}
                     </span>
                     {/* {product.price &&  ( */}
                       <span className="text-sm line-through text-gray-500 ml-2">
                         {/* is ky andar jo product ki value arahe hai us ko 100 sy division kia us ky baat 110 sy multiple kia or toFixed use kis q ky . ky baat bahot sary number arahy thy */}
-                       Rs {(product.price / 100 * 110).toFixed(2)}
+                       $ {(product.price / 100 * 110).toFixed(2)}
                       </span>
                     {/* )} */}
                   </div>
