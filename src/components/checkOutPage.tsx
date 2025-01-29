@@ -318,8 +318,10 @@ function CheckOutPage(props: checkOuntInformation) {
       
       {/* jab place order par click ho ga to ye display block ho jaye ga */}
 
-      <div>
-        {/* Backdrop */}
+      <div className={`${
+            order ? "block" : "hidden"
+          }`}>
+        {/* job palce order par click karro gy to us ky baat bg black hoye ga to is ki wajasy hoye ga*/}
         <div
           className={`fixed inset-0 bg-black bg-opacity-50 z-10 ${
             order ? "block" : "hidden"
@@ -327,10 +329,10 @@ function CheckOutPage(props: checkOuntInformation) {
           onClick={() => setorder(false)} // Modal band karne ke liye backdrop par click
         ></div>
 
-        {/* Modal */}
+        {/*Cash On Delivery par click karro gy to ye chaly ga wana nhi chaly ga  */}
         <div
           className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[50%] lg:w-[30%] p-5 ${
-            order ? "block" : "hidden"
+            checkbox2 ? "block" : "hidden"
           }`}
         >
           {/* Modal Header */}
@@ -377,6 +379,51 @@ function CheckOutPage(props: checkOuntInformation) {
             {/* "Submit" button user ko order submit karne ke liye */}
           </div>
         </div>
+
+
+        {/*Direct Bank Transfer par click karro gy to ye chaly ga wana nhi chaly ga  */}
+        <div
+          className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[50%] lg:w-[30%] p-5 ${
+            checkbox1 ? "block" : "hidden"
+          }`}
+        >
+           {/* Modal Header */}
+           <div className="w-full border-b border-gray-300 pb-4 mb-4">
+            <h3 className="font-semibold text-lg">Order Summary</h3>
+            {/* Header main "Order Summary" likha hai */}
+          </div>
+          {/* Order Details */}
+          <div className="space-y-4">
+            {/* Product Quantity */}
+            <div className="flex justify-between">
+              <span>Total Product:</span>
+              <span>{props.quality}</span>
+              {/* Product ki quantity show kar raha hai */}
+            </div>
+
+            {/* Product Price */}
+            <div className="flex justify-between">
+              <span>Price:</span>
+              <span>$ {props.price}.00</span>
+              {/* Product ka price show kar raha hai */}
+            </div>
+            <div className="flex justify-between font-bold">
+              <span>Total:</span>
+              <span>$ {props.price}.00</span>
+              {/* Total price display kar raha hai */}
+            </div>
+          </div>
+          <div className="mt-6 flex justify-center">
+            <Link href={"/transaction-amount"}>
+            <button
+              className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
+              Transaction Amount
+            </button>
+            </Link>
+            {/* "Submit" button user ko order submit karne ke liye */}
+          </div>
+        </div>
+        {/*  */}
       </div>
 
       {/* ye footer ky upper wala hai part hai */}
