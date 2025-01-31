@@ -1,11 +1,13 @@
+// ye stripe ki waja sy use kar raha ho
+
 'use client'
 import { useState, useEffect, Suspense } from 'react'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 import convertToSubCurrency from '../lib/ConvertToSubCurrency'
 
 const StripeCheckoutPage = ({ amount }: { amount: number }) => {
-    console.log(window.location.host)
 
+// is main host araha hai 
     const myhost = window.location.host
     let URL = '';
 
@@ -27,7 +29,7 @@ const StripeCheckoutPage = ({ amount }: { amount: number }) => {
 
     // as the payment method changes it is necessary to generate a new client secret.
     useEffect(() => {
-        fetch('api/payment-intent', {
+        fetch(`${URL}/api/payment-intent`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +61,7 @@ const StripeCheckoutPage = ({ amount }: { amount: number }) => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: `${URL}/transaction-amount/payment-success?amount=${amount}`
+                return_url: `${URL}/card/checkout/payment-success?amount=${amount}`
             }
         })
 

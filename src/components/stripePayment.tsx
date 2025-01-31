@@ -1,3 +1,5 @@
+// // ye stripe ki waja sy use kar raha ho
+
 "use client"
 
 import convertToSubCurrency from '../lib/ConvertToSubCurrency';
@@ -13,7 +15,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 const StripePayment = async() => {
     
-  const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+  const url = await fetch("http://localhost:3000/api/addToCard", {
     cache: "no-store",
   });
 

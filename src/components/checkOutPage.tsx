@@ -3,10 +3,10 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import SectionLast from "@/components/SectionLast";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { useForm } from "react-hook-form";
 
 type checkOuntInformation = {
@@ -16,7 +16,6 @@ type checkOuntInformation = {
 };
 
 function CheckOutPage(props: checkOuntInformation) {
-
   // ye React-hook-form ka use kia hai
   const {
     register,
@@ -24,10 +23,29 @@ function CheckOutPage(props: checkOuntInformation) {
     formState: { errors },
   } = useForm();
 
-  // is ko form main dia hai jab form fill hoye to ye function chary ga 
-  const onSubmit = (data: any) => {
+  // is ko form main dia hai jab form fill hoye to ye function chary ga or data ky andar form ka sary data aye ga q ky REACT HOOK FORM ki zayeye baat araha hai
+  const onSubmit = async (data: any) => {
+    // data ky andar form ka sary data aye ga q ky REACT HOOK FORM ki zayeye baat araha hai
     console.log("Form Data:", data);
     setorder(true);
+
+    // is main host araha hai
+    const myhost = window.location.host;
+    let URL = "";
+    if (myhost === "localhost:3000") {
+      URL = "http://localhost:3000";
+    } else {
+      URL = "https://3rd-hackathon.vercel.app";
+    }
+
+    const fetchData = await fetch(`${URL}/api/customer-information`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // is main form ka data araha hai
+      body: JSON.stringify(data),
+    });
   };
 
   let [checkbox1, setcheckbox1] = useState<boolean>(false);
@@ -35,11 +53,6 @@ function CheckOutPage(props: checkOuntInformation) {
 
   // ye is liye laga hai ky jab place order par click kro ro to
   let [order, setorder] = useState<boolean>(false);
-
-  const playSound = () => {
-    const audio = new Audio("/sound/ringtone-193209.mp3"); // Path to your sound file
-    audio.play();
-  };
 
   // is sy ye ho raha hai ky jab place order par click karry gy to ek dropdown open hoye ga to pichay wala page kaam nhi kary ga or scrool bhi nhi hoye ga or is ko last section main dia hai
   useEffect(() => {
@@ -49,6 +62,13 @@ function CheckOutPage(props: checkOuntInformation) {
       document.body.style.overflow = "auto";
     }
   }, [order]);
+
+  // is main stripe use ho raha hai or is ko nichy end main dia hai
+  const DynamicComponentWithNoSSR = dynamic(
+    () => import("@/components/stripePayment"),
+    { ssr: false }
+  );
+
 
   return (
     <>
@@ -242,12 +262,6 @@ function CheckOutPage(props: checkOuntInformation) {
                     </h5>
                   </div>
                 </div>
-                {/* <div className="flex items-center justify-between  w-48">
-                  <div className="h-[14px] w-[14px] rounded-full bg-black"></div>
-                  <h3 className="font-normal text-base">
-                    Direct Bank Transfer
-                  </h3>
-                </div> */}
                 <p className="w-full text-sm font-light text-[#9F9F9F]">
                   Make your payment directly into our bank account. Please use
                   your Order ID as the payment reference. Your order will not be
@@ -298,13 +312,6 @@ function CheckOutPage(props: checkOuntInformation) {
                   <button
                     type="submit"
                     className={`w-full h-[60px] mt-6 rounded-md text-white font-semibold text-lg ${"bg-blue-600 hover:bg-blue-700"}`}
-
-                    // className={`border border-black w-[60%] h-16 rounded-2xl flex justify-center items-center cursor-pointer mt-9 ${
-                    //   order ? "hidden" : "block"
-                    // }`}
-                    // onClick={() => {
-                    //   setorder(!order);
-                    // }}
                   >
                     <span className="text-xl font-normal">Place order</span>
                   </button>
@@ -315,15 +322,12 @@ function CheckOutPage(props: checkOuntInformation) {
         </div>
       </form>
 
-      
       {/* jab place order par click ho ga to ye display block ho jaye ga */}
 
-      <div className={`${
-            order ? "block" : "hidden"
-          }`}>
+      <div className={`h-[900px] border-2  ${order ? "block" : "hidden"}`}>
         {/* job palce order par click karro gy to us ky baat bg black hoye ga to is ki wajasy hoye ga*/}
         <div
-          className={`fixed inset-0 bg-black bg-opacity-50 z-10 ${
+          className={`fixed inset-0 bg-black bg-opacity-50 z-10  ${
             order ? "block" : "hidden"
           }`}
           onClick={() => setorder(false)} // Modal band karne ke liye backdrop par click
@@ -363,65 +367,23 @@ function CheckOutPage(props: checkOuntInformation) {
           </div>
           {/* Submit Button */}
           <div className="mt-6 flex justify-center">
-            <button
-              className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800"
-              onClick={() => {
-                setorder(false);
-                playSound();
-                // click karny ky ek second baat page reload hoye ga
-                setTimeout(() => {
-                  window.location.reload();
-                }, 1000);
-              }}
-            >
-              Submit Order
-            </button>
+            <Link href={"/card/checkout/order-information"}>
+              <button className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
+                Submit Order
+              </button>
+            </Link>
             {/* "Submit" button user ko order submit karne ke liye */}
           </div>
         </div>
 
-
         {/*Direct Bank Transfer par click karro gy to ye chaly ga wana nhi chaly ga  */}
         <div
-          className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[50%] lg:w-[30%] p-5 ${
+          className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[70%] lg:w-[50%] p-2 max-h-[80vh] overflow-y-auto ${
             checkbox1 ? "block" : "hidden"
           }`}
         >
-           {/* Modal Header */}
-           <div className="w-full border-b border-gray-300 pb-4 mb-4">
-            <h3 className="font-semibold text-lg">Order Summary</h3>
-            {/* Header main "Order Summary" likha hai */}
-          </div>
-          {/* Order Details */}
-          <div className="space-y-4">
-            {/* Product Quantity */}
-            <div className="flex justify-between">
-              <span>Total Product:</span>
-              <span>{props.quality}</span>
-              {/* Product ki quantity show kar raha hai */}
-            </div>
-
-            {/* Product Price */}
-            <div className="flex justify-between">
-              <span>Price:</span>
-              <span>$ {props.price}.00</span>
-              {/* Product ka price show kar raha hai */}
-            </div>
-            <div className="flex justify-between font-bold">
-              <span>Total:</span>
-              <span>$ {props.price}.00</span>
-              {/* Total price display kar raha hai */}
-            </div>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <Link href={"/transaction-amount"}>
-            <button
-              className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
-              Transaction Amount
-            </button>
-            </Link>
-            {/* "Submit" button user ko order submit karne ke liye */}
-          </div>
+          {/* ye upper sy araha hai is main stripe ky zayeye payment method use kar raha ho */}
+          <DynamicComponentWithNoSSR />
         </div>
         {/*  */}
       </div>

@@ -1,3 +1,5 @@
+// ye stripe ki waja sy use kar raha ho
+
 import { NextRequest, NextResponse } from "next/server";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);

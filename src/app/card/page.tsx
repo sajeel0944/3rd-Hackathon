@@ -52,7 +52,7 @@ async function Card() {
               </tr>
             </thead>
             {/* ye uppar diya hai ye  user jo bhi product add to card kary ga wo is main ata rahy ga*/}
-            {arrayOne.map((manageDateil: any ,index:number) => {
+            {arrayOne.map((manageDateil: any ,index:number) => { 
               return (
                 <>
                   <tbody>
