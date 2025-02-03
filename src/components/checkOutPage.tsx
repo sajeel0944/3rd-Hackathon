@@ -3,11 +3,13 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import SectionLast from "@/components/SectionLast";
+import { client } from "@/sanity/lib/client";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import CheckOutCashOnDelivery from "./checkOutCashOnDelivery";
 
 type checkOuntInformation = {
   quality: number;
@@ -29,23 +31,24 @@ function CheckOutPage(props: checkOuntInformation) {
     console.log("Form Data:", data);
     setorder(true);
 
-    // is main host araha hai
-    const myhost = window.location.host;
-    let URL = "";
-    if (myhost === "localhost:3000") {
-      URL = "http://localhost:3000";
-    } else {
-      URL = "https://3rd-hackathon.vercel.app";
-    }
+    // is ko isliye dia is taky is formate main sanity main baat jaye
+    const makeSanityCutomer = {
+      ZIP: Number(data.zip),
+      City: data.city,
+      Company: data.companyName,
+      address: data.street,
+      _type: "customer",
+      Province: data.province,
+      firstName: data.firstName,
+      Email: data.email,
+      Phone: Number(data.phone),
+      Country: data.country,
+      lastName: data.lastName,
+      Additional: data.additionalInfo,
+    };
 
-    const fetchData = await fetch(`${URL}/api/customer-information`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // is main form ka data araha hai
-      body: JSON.stringify(data),
-    });
+    // is main sanity main bata jaraha hai
+    const pushData = await client.create(makeSanityCutomer);
   };
 
   let [checkbox1, setcheckbox1] = useState<boolean>(false);
@@ -68,7 +71,6 @@ function CheckOutPage(props: checkOuntInformation) {
     () => import("@/components/stripePayment"),
     { ssr: false }
   );
-
 
   return (
     <>
@@ -339,41 +341,8 @@ function CheckOutPage(props: checkOuntInformation) {
             checkbox2 ? "block" : "hidden"
           }`}
         >
-          {/* Modal Header */}
-          <div className="w-full border-b border-gray-300 pb-4 mb-4">
-            <h3 className="font-semibold text-lg">Order Summary</h3>
-            {/* Header main "Order Summary" likha hai */}
-          </div>
-          {/* Order Details */}
-          <div className="space-y-4">
-            {/* Product Quantity */}
-            <div className="flex justify-between">
-              <span>Total Product:</span>
-              <span>{props.quality}</span>
-              {/* Product ki quantity show kar raha hai */}
-            </div>
-
-            {/* Product Price */}
-            <div className="flex justify-between">
-              <span>Price:</span>
-              <span>$ {props.price}.00</span>
-              {/* Product ka price show kar raha hai */}
-            </div>
-            <div className="flex justify-between font-bold">
-              <span>Total:</span>
-              <span>$ {props.price}.00</span>
-              {/* Total price display kar raha hai */}
-            </div>
-          </div>
-          {/* Submit Button */}
-          <div className="mt-6 flex justify-center">
-            <Link href={"/card/checkout/order-information"}>
-              <button className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
-                Submit Order
-              </button>
-            </Link>
-            {/* "Submit" button user ko order submit karne ke liye */}
-          </div>
+          {/* yjab aap "cash on delivery" par click karro gy to ye open ho ye ga or is ky andar quality or price pass kar raha ho  */}
+          <CheckOutCashOnDelivery quality={props.quality} price={props.price} />
         </div>
 
         {/*Direct Bank Transfer par click karro gy to ye chaly ga wana nhi chaly ga  */}
