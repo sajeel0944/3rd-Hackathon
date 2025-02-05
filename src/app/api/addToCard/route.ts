@@ -56,7 +56,16 @@ let saveDataQuality: any[] = [];
 const clearData = () => {
   setTimeout(
     () => {
-      saveDataSanity = [];
+      saveDataSanity = [
+        {
+          price: "",
+          isNew: false,
+          _id: "qQpkQmFIZ2DSQkhvXBfW85",
+          title: "",
+          imageUrl: "",
+          dicountPercentage: 0,
+        },
+      ];
       saveDataQuality = [];
       console.log("Cart data cleared after 3 minutes!");
     },
