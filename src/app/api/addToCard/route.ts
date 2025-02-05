@@ -80,10 +80,18 @@ export async function POST(request: NextRequest) {
         isNew
     }`);
 
-  const set = sanityData[data.arratIdNumber];
+  let productId: string = data.arratIdNumber;
 
-  // Store in server memory
-  saveDataSanity.push(set);
+  // filter  sanityData ky nadar ek ek array ko check kary ka jo array ki value true hogi wo array pass hoye ga
+  let filterProduct = sanityData.filter((product: any) =>
+    //includes   product._id.toLowerCase() or  productId.toLowerCase()  ko check kary ga ky agar dono ki value same
+    //hogi to true hoye ga wo arry upper filteredProducts main save hoye ga or agar false hoye ga wo pass nhi hoye ga
+    product._id.toLocaleLowerCase().includes(productId.toLocaleLowerCase())
+  );
+
+
+  // filterProduct main jo product arahy hai wo array ky andar object araha hai or mujy bas object cahaye to is liye ye dia hai filterProduct[0]
+  saveDataSanity.push(filterProduct[0]);
   saveDataQuality.push(data.quality);
 
   console.log("Data added to cart:", saveDataSanity);
