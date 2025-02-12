@@ -1,60 +1,83 @@
-// // ye stripe ki waja sy use kar raha ho
+// // ye stripe ki waja sy use kar raha ho or is ko CheckOutPage compnent main dia hai
 
-"use client"
+"use client";
 
-import convertToSubCurrency from '../lib/ConvertToSubCurrency';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import StripeCheckoutPage from './stripeCheckOut';
+import convertToSubCurrency from "../lib/ConvertToSubCurrency";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import StripeCheckoutPage from "./stripeCheckOut";
+import { client } from "@/sanity/lib/client";
+import { useEffect, useState } from "react";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === undefined) {
-    throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not defined')
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not defined");
 }
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
-const StripePayment = async() => {
-    
-  const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
-    cache: "no-store",
-  });
-
+const StripePayment = () => {
   
-  const convert = await url.json();
+  // is kyandar cutomer ka sara bata araha hai
+  const [sanityCustomerInfo, setSanityCustomerInfo] = useState<any>([]);
+  let total=0
 
-  // is ko is liye dia q ky backend ky andar mein ny array ky andar array hai or us ky andar 0 index ky andar sary product aye gy
-  const arrayOne = convert[0];
-  const findLength=arrayOne.length -1;
+  useEffect(() => {
+    async function findSanity() {
+      try {
+        //is ky andar customer ki information arahe hai sanity sy  or  jab mein sanity ky anadr bata push kar raha tha to
+        // wo api data api ky andar mid  main araha tha is sy "| order(_createdAt asc)" ye hoye ga ky jo data mein do ga wo
+        //  end main aye ga "| order(_createdAt asc)"
+        const sanityFetchData = await client.fetch(
+          `*[_type=="customer"] | order(_createdAt asc)`
+        );
+        setSanityCustomerInfo(sanityFetchData);
+      } catch (error) {
+        console.error("Error fetching customer data from Sanity:", error);
+      }
+    }
 
-  // ye is liye dia hai q ky mein ny backend ek default array banaya hai jab  array ki value 2 hogi to first default value delete hogaye gi shift ki madad sy shift array ki frist value ko delete karta hai
-  if (arrayOne.length >= 1) {
-    arrayOne.shift();
+    findSanity();
+  }, []);
+
+  // jab page reload ho ta hai to sanityCustomerInfo is ky andar data aye main time lagy ga gab tak bata nhi ho to ye aye ga
+  if (sanityCustomerInfo.length <= 0) {
+  //  agar  sanityCustomerInfo ky nadar value nhi hoye gi to total ky nadar ye  jaye ga
+    total=0.5
+  }else{
+    // agar sanityCustomerInfo ky andar value ajaye gi to ye chaly ga
+    const userInformation = sanityCustomerInfo[sanityCustomerInfo.length - 1];
+
+    // is ky andar total amount araha jo user ny add to card kia tha  or sanity sy arahe hai
+    const totalPrice = userInformation.cart.reduce(
+      (acc: number, product: any, index: number) => {
+        const quantity = userInformation.productquality[index]?.quality || 1; // Default quantity = 1 if not found
+        return acc + product.price * quantity;
+      },
+      0
+    );
+
+    // is ky andar totalprice ki value jarahe hai
+    total=totalPrice
+  
   }
-
-  // Calculate the total price by summing up all product prices or array ky andar jitny bhi product hai un sab ki price ko plus kar raha hai
-  const totalPrice = arrayOne.reduce(
-    (acc: number, product: any, index: number) =>
-      acc + product.price * (convert[1][index] || 0),
-    0
+  
+  const amount = total;
+  return (
+    <div>
+      <Elements
+        stripe={stripePromise}
+        options={{
+          mode: "payment",
+          amount: convertToSubCurrency(amount),
+          currency: "usd",
+        }}
+      >
+        <StripeCheckoutPage amount={amount} />
+      </Elements>
+    </div>
   );
+};
 
-
-    const amount =totalPrice +0.5
-    return (
-        <div>
-            <Elements
-                stripe={stripePromise}
-                options={{
-                    mode: 'payment',
-                    amount: convertToSubCurrency(amount),
-                    currency: 'usd'
-                }}
-            >
-                <StripeCheckoutPage amount={amount} />
-            </Elements>
-
-        </div>
-    )
-}
-
-export default StripePayment
+export default StripePayment;

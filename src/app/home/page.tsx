@@ -121,7 +121,7 @@ export default async function Home() {
                 key={product.id}
                 className="relative bg-white rounded-lg shadow-md overflow-hidden group"
               >
-                <Link href={`/shop/${index}`}>
+                <Link href={`/shop/${product._id}`}>
                   <div className="relative">
                     <Image
                       src={`${urlFor(product.imageUrl)}`}

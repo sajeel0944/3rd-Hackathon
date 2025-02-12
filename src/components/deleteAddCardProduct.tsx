@@ -10,7 +10,7 @@ type defineNumber={
 
 function DeleteAddCardProduct(props:defineNumber) {
 let [number,setnumber]=useState<number>(0);
-  console.log(number);
+  // console.log(number);
 
   const deleteArrayValue = async () => {
     // props ky zaaye array ky index number get kia hai or us main + 1 kia hai q ky array zero sy start hoti hai or mein ny bankend main ek default value dia hoye hai

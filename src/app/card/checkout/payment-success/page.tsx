@@ -1,6 +1,5 @@
-"use client"
+"use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
@@ -13,6 +12,7 @@ interface IParams {
 
 // searchParams is ky andar jo customer BY kary ga us ki amount is main aye gi  or StripePayment component ky zayeye amount ayegi darak amount nhi arahe gumphil ky amount arahe hai
 const PaymentSuccess = ({ searchParams }: IParams) => {
+
   // is ky andar current date araha hai
   const currentDate = new Date().toLocaleDateString("en-GB");
 
@@ -24,24 +24,21 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
     hour12: false,
   });
 
-  let [loading,setloading]=useState<boolean>(false);
+  let [loading, setloading] = useState<boolean>(false);
 
   const route = useRouter();
 
   const handleRoute = () => {
-    setloading(loading=true)
+    setloading((loading = true));
     setTimeout(() => {
       route.push("/card/checkout/order-information");
-    }, 9000);
-
-    setTimeout(() => {
-        window.location.reload();
-    }, 10000);
+    }, 6000);
   };
 
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+        
         <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md text-center">
           <div className="text-green-500 text-6xl mb-4">✔</div>
           <h1 className="text-2xl font-bold text-gray-800">Payment Received</h1>
@@ -67,21 +64,26 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
               </p>
             </div>
           </div>
-          {/* <Link href={"/card/checkout/order-information"}> */}
-            <button className={`mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition ${loading? "hidden" :"inline-block"}`} onClick={handleRoute}>
-              Order Details
-            </button>
 
-             <div className={`mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg ${loading ? "block " : "hidden"}`}>
-                                <Image
-                                  src={"/picture/loading.png"}
-                                  alt={""}
-                                  width={90}
-                                  height={90}
-                                  className="mx-auto size-5 animate-spin h-8 w-8  "
-                                />
-                              </div>
-          {/* </Link> */}
+          <button
+            className={`mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition ${loading ? "hidden" : "inline-block"}`}
+            onClick={handleRoute}
+          >
+            Order Details
+          </button>
+
+          <div
+            className={`mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg ${loading ? "block " : "hidden"}`}
+          >
+            <Image
+              src={"/picture/loading.png"}
+              alt={""}
+              width={90}
+              height={90}
+              className="mx-auto size-5 animate-spin h-8 w-8  "
+            />
+          </div>
+
         </div>
       </div>
     </>

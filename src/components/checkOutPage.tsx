@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CheckOutCashOnDelivery from "./checkOutCashOnDelivery";
+import { json } from "stream/consumers";
 
 type checkOuntInformation = {
   quality: number;
@@ -18,6 +19,7 @@ type checkOuntInformation = {
 };
 
 function CheckOutPage(props: checkOuntInformation) {
+
   // ye React-hook-form ka use kia hai
   const {
     register,
@@ -25,14 +27,27 @@ function CheckOutPage(props: checkOuntInformation) {
     formState: { errors },
   } = useForm();
 
-  // is ko form main dia hai jab form fill hoye to ye function chary ga or data ky andar form ka sary data aye ga q ky REACT HOOK FORM ki zayeye baat araha hai
   const onSubmit = async (data: any) => {
-    // data ky andar form ka sary data aye ga q ky REACT HOOK FORM ki zayeye baat araha hai
     console.log("Form Data:", data);
     setorder(true);
 
-    // is ko isliye dia is taky is formate main sanity main baat jaye
+    //is ky andar addToCard ko fetch karra ha ho or is ka data sif sanity andar jaraha hai
+    let fetchDataPush = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+      cache: "no-store",
+    });
+
+    // is ky andar addToCard ko json main kar rahy hai
+    let fechingData = await fetchDataPush.json();
+
+    // is ky andar add to card ky product aye gy or fechingData[0] is ko liye dia hai q ky ky backend main do array hai ek ky andar product or dosary ky andar quality
+    let fetchDataPushconvert = fechingData[0];
+
+    // is ky andar add to card ky product ki quality aye gy or fechingData[1] is ko liye dia hai q ky ky backend main do array hai ek ky andar product or dosary ky andar quality
+    let productQuality = fechingData[1];
+
+    // is ky andar sanity ky andar data jaraha hai
     const makeSanityCutomer = {
+      // is ky andar customer ki information jarahe hai
       ZIP: Number(data.zip),
       City: data.city,
       Company: data.companyName,
@@ -45,10 +60,44 @@ function CheckOutPage(props: checkOuntInformation) {
       Country: data.country,
       lastName: data.lastName,
       Additional: data.additionalInfo,
+      // is ky andar add to card ki product jarahe hai
+      cart: fetchDataPushconvert
+        .filter((product: any) => product.title && product.price)
+        .map((product: any, index: number) => ({
+          productId: product._id,
+          title: product.title,
+          price: product.price,
+          isNew: product.isNew,
+          discountPercentage: product.dicountPercentage || 0, // ✅ Fix spelling mistake
+          imageUrl: product.imageUrl,
+          _key: `wfdt-${index}-lj`,
+        })),
+      // is ky andar product ki quality arahe hai
+      productquality: productQuality.map((qualitying: any, index: number) => ({
+        _key: `qdlpy-${index}-mxsk`,
+        _type: "qualityItem", // 👈 Add `_type` to match the schema
+        quality: qualitying,
+      })),
     };
 
-    // is main sanity main bata jaraha hai
-    const pushData = await client.create(makeSanityCutomer);
+    // Push data to Sanity 
+    try {
+      const pushData = await client.create(makeSanityCutomer);
+      console.log("Data pushed to Sanity:", pushData);
+    } catch (error) {
+      console.error("Error pushing data to Sanity:", error);
+    }
+
+    // jab place order par click karro gy to add to card ki sary value delete ho jaye gi
+    const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        arrayIndexValue:"xyz"
+      }),
+    });
   };
 
   let [checkbox1, setcheckbox1] = useState<boolean>(false);
@@ -335,6 +384,7 @@ function CheckOutPage(props: checkOuntInformation) {
           onClick={() => setorder(false)} // Modal band karne ke liye backdrop par click
         ></div>
 
+
         {/*Cash On Delivery par click karro gy to ye chaly ga wana nhi chaly ga  */}
         <div
           className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[50%] lg:w-[30%] p-5 ${
@@ -345,6 +395,7 @@ function CheckOutPage(props: checkOuntInformation) {
           <CheckOutCashOnDelivery quality={props.quality} price={props.price} />
         </div>
 
+
         {/*Direct Bank Transfer par click karro gy to ye chaly ga wana nhi chaly ga  */}
         <div
           className={`fixed z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-white shadow-lg rounded-xl bg-white w-[90%] md:w-[70%] lg:w-[50%] p-2 max-h-[80vh] overflow-y-auto ${
@@ -354,7 +405,7 @@ function CheckOutPage(props: checkOuntInformation) {
           {/* ye upper sy araha hai is main stripe ky zayeye payment method use kar raha ho */}
           <DynamicComponentWithNoSSR />
         </div>
-        {/*  */}
+
       </div>
 
       {/* ye footer ky upper wala hai part hai */}
