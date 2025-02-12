@@ -10,7 +10,7 @@ function AdminSignOut() {
   let [loading, setloading] = useState<boolean>(false);
 
   const route = useRouter();
-  // is fountion ko nichy sign out ky buttom main fia hai
+  // is fountion ko nichy sign out ky buttom main fia hai .
   const pushnavigate = () => {
     // is ky zayeye home page par gaye gy
     route.push("/");
