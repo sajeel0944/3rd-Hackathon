@@ -12,6 +12,7 @@ const OrderInformationStroge = () => {
   const [sanityCustomerInfo, setSanityCustomerInfo] = useState<any>([]);
 
   useEffect(() => {
+    setTimeout(()=>{
     async function findSanity() {
       try {
         //is ky andar customer ki information arahe hai sanity sy  or  jab mein sanity ky anadr bata push kar raha tha to
@@ -27,6 +28,7 @@ const OrderInformationStroge = () => {
     }
 
     findSanity();
+  },5000)
   }, []);
 
   // jab page reload ho ta hai to sanityCustomerInfo is ky andar data aye main time lagy ga gab tak bata nhi ho to ye aye ga
