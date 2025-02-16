@@ -15,7 +15,7 @@ let [number,setnumber]=useState<number>(0);
   const deleteArrayValue = async () => {
     // props ky zaaye array ky index number get kia hai or us main + 1 kia hai q ky array zero sy start hoti hai or mein ny bankend main ek default value dia hoye hai
     setnumber(number=props.indecNumber +1 )
-    const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+    const url = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/addToCard`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

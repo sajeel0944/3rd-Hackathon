@@ -19,7 +19,7 @@ function Hero(props:made) {
           <p className="text-sm md:text-base font-medium text-black">
             <span className="hover:underline cursor-pointer ">
               {" "}
-              <Link href={"/home"}>Home</Link>
+              <Link href={"/"}>Home</Link>
             </span>{" "}
             &gt; {props.put}
           </p>

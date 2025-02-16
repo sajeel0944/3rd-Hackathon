@@ -142,7 +142,7 @@ const OrderInformationStroge = () => {
 
         {/* Call-to-Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mt-8">
-          <Link href={"/home"}>
+          <Link href={"/"}>
             <button className="w-full sm:w-auto bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700">
               Continue Shopping
             </button>

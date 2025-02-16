@@ -17,7 +17,7 @@ export default function Login() {
     const getUserNAme = userName?.current?.value;
     const getPassword = userPassword?.current?.value;
 
-    const url = await fetch("https://3rd-hackathon.vercel.app/api/login", {
+    const url = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -13,16 +13,13 @@ interface IParams {
 // searchParams is ky andar jo customer BY kary ga us ki amount is main aye gi  or StripePayment component ky zayeye amount ayegi darak amount nhi arahe gumphil ky amount arahe hai
 const PaymentSuccess = ({ searchParams }: IParams) => {
 
-  // is ky andar current date araha hai
-  const currentDate = new Date().toLocaleDateString("en-GB");
+   //  is ky andar live date or time arahe hai
+   let live_Date = new Date();
 
-  // is ky andar current time araha hai
-  const currentTime = new Date().toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
+   // is ky andar live date arahe hai
+   let current_date = live_Date.toLocaleDateString();
+   // is ky andar live time arahe hai
+   let current_time = live_Date.toLocaleTimeString();
 
   let [loading, setloading] = useState<boolean>(false);
 
@@ -57,10 +54,10 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
               </p>
               <p>
                 {/* is ky andar current time araha hai */}
-                <strong>Transaction Time : </strong> {currentTime}
+                <strong>Transaction Time : </strong> {current_time}
               </p>
               <p>
-                <strong>Transaction Date : </strong> {currentDate}
+                <strong>Transaction Date : </strong> {current_date}
               </p>
             </div>
           </div>

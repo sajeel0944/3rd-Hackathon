@@ -32,7 +32,7 @@ function CheckOutPage(props: checkOuntInformation) {
     setorder(true);
 
     //is ky andar addToCard ko fetch karra ha ho or is ka data sif sanity andar jaraha hai
-    let fetchDataPush = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+    let fetchDataPush = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/addToCard`, {
       cache: "no-store",
     });
 
@@ -44,6 +44,14 @@ function CheckOutPage(props: checkOuntInformation) {
 
     // is ky andar add to card ky product ki quality aye gy or fechingData[1] is ko liye dia hai q ky ky backend main do array hai ek ky andar product or dosary ky andar quality
     let productQuality = fechingData[1];
+
+    //  is ky andar live date or time arahe hai
+    let live_Date = new Date();
+
+    // is ky andar live date arahe hai
+    let current_date = live_Date.toLocaleDateString();
+    // is ky andar live time arahe hai
+    let current_time = live_Date.toLocaleTimeString()
 
     // is ky andar sanity ky andar data jaraha hai
     const makeSanityCutomer = {
@@ -60,6 +68,8 @@ function CheckOutPage(props: checkOuntInformation) {
       Country: data.country,
       lastName: data.lastName,
       Additional: data.additionalInfo,
+      Date: current_date,
+      Time: current_time,
       // is ky andar add to card ki product jarahe hai
       cart: fetchDataPushconvert
         .filter((product: any) => product.title && product.price)
@@ -89,7 +99,7 @@ function CheckOutPage(props: checkOuntInformation) {
     }
 
     // jab place order par click karro gy to add to card ki sary value delete ho jaye gi
-    const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+    const url = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/addToCard`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

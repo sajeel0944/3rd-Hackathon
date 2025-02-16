@@ -71,6 +71,16 @@ export const customer = defineType({
       title: "Additional",
       type: "string",
     },
+    {
+      name : "Date",
+      title : "Date",
+      type : "string"
+    },
+    {
+      name : "Time",
+      title : "Time",
+      type : "string"
+    },
     // // is ky andar add to card ki product jarahe hai
     {
       name: "cart",

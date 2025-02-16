@@ -14,7 +14,7 @@ const Header = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = await fetch("https://3rd-hackathon.vercel.app/api/addToCard", {
+      const url = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/addToCard`, {
         cache: "no-store",
       });
       const convert = await url.json();
@@ -49,7 +49,7 @@ const Header = () => {
           display ? "block" : "[@media(max-width:768px)]:hidden"
         } [@media(max-width:768px)]:absolute [@media(max-width:768px)]:top-[60px] [@media(max-width:768px)]:left-[35%] [@media(max-width:768px)]:h-40 [@media(max-width:768px)]:flex-col [@media(max-width:768px)]:space-x-0 [@media(max-width:768px)]:w-[35%] [@media(max-width:768px)]:items-center [@media(max-width:768px)]:space-y-3 [@media(max-width:768px)]:text-xl [@media(max-width:768px)]:pt-2 [@media(max-width:768px)]:font-extrabold [@media(max-width:768px)]:rounded-lg `}
       >
-        <Link href="/home" className="text-gray-700 hover:text-black ">
+        <Link href="/" className="text-gray-700 hover:text-black ">
           Home
         </Link>
         <Link href="/shop" className="text-gray-700 hover:text-black">
@@ -67,7 +67,7 @@ const Header = () => {
       <div
         className={`flex ${display ? "" : "items-center"} space-x-7 [@media(max-width:480px)]:space-x-5 [@media(max-width:400px)]:w-[40%] [@media(max-width:380px)]:ml-5 `}
       >
-        <Link href={"/dashboard"}>
+        <Link href={"/order-information"}>
           <Image
             src={"/picture/mdi_account-alert-outline.png"}
             alt={"logo"}
@@ -77,15 +77,15 @@ const Header = () => {
           />
         </Link>
 
-        <Link href={"/404/search/1"}>
+        {/* <Link href={"/order-information"}>
           <Image
-            src={"/picture/akar-icons_search.png"}
+            src={"/picture/bad1.png"}
             alt={"logo"}
-            width={28}
-            height={28}
-            className="cursor-pointer [@media(max-width:440px)]:w-[100%] [@media(max-width:440px)]:h-6"
+            width={38}
+            height={38}
+            className="cursor-pointer  [@media(max-width:440px)]:w-[100%] [@media(max-width:440px)]:h-6"
           />
-        </Link>
+        </Link> */}
 
         <Link href={"/card"}>
           <div className="flex">

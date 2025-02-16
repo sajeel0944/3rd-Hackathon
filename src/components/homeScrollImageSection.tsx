@@ -27,7 +27,7 @@ function HomeScrollImageSection() {
       id: 2,
       title: "Browse The Range",
       subtitle: "02 — Potty",
-      img: "/picture/image 8.png",
+      img: "/picture/image 3.png",
     },
     {
       id: 3,
