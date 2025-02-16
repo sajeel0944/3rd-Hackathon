@@ -96,7 +96,7 @@ export default async function Home() {
             {/* Bedroom */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
               <Image
-                src="/picture/image 100.png"
+                src="/picture/image-last.png"
                 alt="Bedroom"
                 width={170}
                 height={170}
