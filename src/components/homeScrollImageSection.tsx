@@ -15,7 +15,7 @@ function HomeScrollImageSection() {
     img: string;
   }
 
-  // Sample images for the slider
+  // Sample images for the slider 
   const slides: Slide[] = [
     {
       id: 1,
