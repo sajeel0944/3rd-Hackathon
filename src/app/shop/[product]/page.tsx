@@ -58,7 +58,7 @@ function Product({ params }: { params: { product: string } }) {
     );
   }
 
-
+ 
   return (
     <>
       <Header />

@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ShowAddToCardNotification from "./showAddToCardNotification";
+import ProductComment from "./productComment";
 
 function ProduntDetail(props: detail) {
   // is ko nichy discribtion maim dia hai q ky sanity sy discrition bohot bare arahe thi is function sy hamain jitny word dyna hai hum utny word dy sak ty hai
@@ -72,6 +73,9 @@ function ProduntDetail(props: detail) {
 
     // end   ShowAddToCardNotification componenet ko addtocard ky buttom ky nichy dia hai
   };
+
+
+  let [productDetail, setproductDetail] = useState<boolean>(true);
 
   return (
     <>
@@ -366,24 +370,27 @@ function ProduntDetail(props: detail) {
         <div className=" w-full h-[595px] space-y-12 mt-7 md:h-[660px] sm:h-[1058px] [@media(max-width:460px)]: [@media(max-width:639px)]:h-[1190px] [@media(max-width:639px)]:space-y-9">
           <div className="w-full h-9 flex items-center justify-center px-1">
             <div className="w-[60%] h-9 flex justify-between  [@media(max-width:1124px)]:w-full [@media(max-width:639px)]:items-center">
-              <h2 className="font-medium md:text-2xl sm:text-xl [@media(max-width:460px)]:text-sm">
+              <h2 className={`font-medium md:text-2xl sm:text-xl [@media(max-width:460px)]:text-sm cursor-pointer ${productDetail ? "text-[#000000]" : "text-[#9F9F9F]"}`} onClick={() => setproductDetail(true)}>
                 Description
               </h2>
-              <h2 className="md:text-2xl text-[#9F9F9F] sm:text-xl [@media(max-width:460px)]:text-sm">
-                Additional Information
-              </h2>
-              <h2 className="md:text-2xl text-[#9F9F9F] sm:text-xl [@media(max-width:460px)]:text-sm">
-                Reviews [5]
+              <h2 className={`md:text-2xl sm:text-xl [@media(max-width:460px)]:text-sm cursor-pointer ${productDetail ? "text-[#9F9F9F]" : "text-[#000000]"}`} onClick={() => setproductDetail(false)}>
+                Reviews
               </h2>
             </div>
           </div>
 
+          {productDetail ? 
           <div className="w-full h-[174px] space-y-7  md:h-[260px] sm:h-[330px] [@media(max-width:639px)]:h-[520px] px-1">
             <p className="text-justify text-[#9F9F9F]">
               {/* getword ko upper banaya hai  */}
               {getWords(props.discribtion, 160)}
             </p>
           </div>
+          :
+          <div>
+            <ProductComment title={`${props.name}`}/>
+          </div>
+          }
 
           <div className="w-full h-[282px] flex space-x-8 [@media(max-width:768px)]:flex-col [@media(max-width:768px)]:h-[590px] [@media(max-width:768px)]:space-x-0 [@media(max-width:768px)]:space-y-6">
             <div className="w-[50%] h-[281px] bg-[#F9F1E7] [@media(max-width:768px)]:w-full flex justify-center">
