@@ -21,7 +21,7 @@ function CheckOutCashOnDelivery(props: cash) {
     setloading((loading = true));
     setTimeout(() => {
       route.push("/card/checkout/order-information");
-    }, 5000);
+    }, 3000);
   };
   return (
     <>

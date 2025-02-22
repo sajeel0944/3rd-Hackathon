@@ -12,23 +12,29 @@ const OrderInformationStroge = () => {
   const [sanityCustomerInfo, setSanityCustomerInfo] = useState<any>([]);
 
   useEffect(() => {
-    setTimeout(()=>{
-    async function findSanity() {
+    // Query to fetch customer data from Sanity or is sy  "| order(_createdAt asc)" se daat ko latest se oldest order mein fetch kiya jayega. matarab ky ulta baat hojaye ga
+    const query = `*[_type == "customer"] | order(_createdAt asc)`;
+
+    // Function to fetch initial data
+    const fetchData = async () => {
       try {
-        //is ky andar customer ki information arahe hai sanity sy  or  jab mein sanity ky anadr bata push kar raha tha to
-        // wo api data api ky andar mid  main araha tha is sy "| order(_createdAt asc)" ye hoye ga ky jo data mein do ga wo
-        //  end main aye ga "| order(_createdAt asc)"
-        const sanityFetchData = await client.fetch(
-          `*[_type=="customer"] | order(_createdAt asc)`
-        );
-        setSanityCustomerInfo(sanityFetchData);
+        const sanityFetchData = await client.fetch(query); // Sanity se data fetch karein
+        setSanityCustomerInfo(sanityFetchData); // Fetched data ko setSanityCustomerInfo ky andar jaraha hai
       } catch (error) {
         console.error("Error fetching customer data from Sanity:", error);
       }
-    }
+    };
 
-    findSanity();
-  },5000)
+    fetchData(); // Fetch initial data
+
+    // Real-time updates ke liye subscribe karein
+    const subscription = client.listen(query).subscribe((update) => {
+       // Jab bhi naya bata add ho, usko state mein add karein
+      setSanityCustomerInfo((prevData: any) => [...prevData, update.result]);
+    });
+
+    // Cleanup function
+    return () => subscription.unsubscribe();
   }, []);
 
   // jab page reload ho ta hai to sanityCustomerInfo is ky andar data aye main time lagy ga gab tak bata nhi ho to ye aye ga

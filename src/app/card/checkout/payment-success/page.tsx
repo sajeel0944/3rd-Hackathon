@@ -29,7 +29,7 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
     setloading((loading = true));
     setTimeout(() => {
       route.push("/card/checkout/order-information");
-    }, 6000);
+    }, 3000);
   };
 
   return (
@@ -50,7 +50,7 @@ const PaymentSuccess = ({ searchParams }: IParams) => {
             <div className="bg-gray-50 p-4 rounded-lg mt-2 text-gray-600">
               <p>
                 {/* is ky andar jo customer BY kary ga us ki amount is main aye gi  is ko upper function ky parameter main dia hai */}
-                <strong>Transaction Amount : </strong> $ {searchParams.amount}
+                {/* <strong>Transaction Amount : </strong> $ {searchParams.amount} */}
               </p>
               <p>
                 {/* is ky andar current time araha hai */}
